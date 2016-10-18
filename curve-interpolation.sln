@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{36FD64AF-6541-4EEC-ED4B-FDCE56E8F871}") = "curve-interpolation", "Assembly-CSharp.csproj", "{A77B89C8-91EC-B4E6-78BA-7CB056A7C00D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A77B89C8-91EC-B4E6-78BA-7CB056A7C00D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A77B89C8-91EC-B4E6-78BA-7CB056A7C00D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A77B89C8-91EC-B4E6-78BA-7CB056A7C00D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A77B89C8-91EC-B4E6-78BA-7CB056A7C00D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
