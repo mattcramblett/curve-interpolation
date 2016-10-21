@@ -14,21 +14,31 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
 	const int MaxY = 5;
 	const int MaxZ = 5;
 	
-	double time = 0;
-	const double DT = 0.01;
+	float time = 0f;
+	const float DT = 0.01f;
 	
 	/* Returns a point on a cubic Catmull-Rom/Blended Parabolas curve
 	 * u is a scalar value from 0 to 1
 	 * segment_number indicates which 4 points to use for interpolation
 	 */
-	Vector3 ComputePointOnCatmullRomCurve(double u, int segmentNumber)
+	Vector3 ComputePointOnCatmullRomCurve(float u, int segmentNumber)
 	{
-		Vector3 point = new Vector3();
 		
 		// TODO - compute and return a point as a Vector3		
 		// Hint: Points on segment number 0 start at controlPoints[0] and end at controlPoints[1]
 		//		 Points on segment number 1 start at controlPoints[1] and end at controlPoints[2]
 		//		 etc...
+
+		Vector3 point = new Vector3();
+		
+		//The coefficients of the cubic polynomial (except the 0.5f * which I added later for performance)
+		Vector3 a = 2f * controlPoints[1 + segmentNumber];
+		Vector3 b = controlPoints[2 + segmentNumber] - controlPoints[2 + segmentNumber];
+		Vector3 c = 2f * controlPoints[0 + segmentNumber] - 5f * controlPoints[1 + segmentNumber] + 4f * controlPoints[2 + segmentNumber] - controlPoints[3 + segmentNumber];
+		Vector3 d = -controlPoints[0 + segmentNumber] + 3f * controlPoints[1 + segmentNumber] - 3f * controlPoints[2 + segmentNumber] + controlPoints[3 + segmentNumber];
+
+		//The cubic polynomial: a + b * t + c * t^2 + d * t^3
+		point = 0.5f * (a + (b * u) + (c * u * u) + (d * u * u * u));
 		
 		return point;
 	}
@@ -48,13 +58,16 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
 
 		controlPoints = new Vector3[NumberOfPoints];
 		
-		// set points randomly...
+
+		// set points randomly:
 		controlPoints[0] = new Vector3(0,0,0);
 		for(int i = 1; i < NumberOfPoints; i++)
 		{
 			controlPoints[i] = new Vector3(Random.Range(MinX,MaxX),Random.Range(MinY,MaxY),Random.Range(MinZ,MaxZ));
 		}
-		/*...or hard code them for testing
+
+		/*
+		//Hard coded control points:
 		controlPoints[0] = new Vector3(0,0,0);
 		controlPoints[1] = new Vector3(0,0,0);
 		controlPoints[2] = new Vector3(0,0,0);
@@ -64,18 +77,24 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
 		controlPoints[6] = new Vector3(0,0,0);
 		controlPoints[7] = new Vector3(0,0,0);
 		*/
-		
+
 		GenerateControlPointGeometry();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
-		time += DT;
+
+		if(time >= 2){
+			time = 0;
+		}else{
+			time += DT;
+		}
+		
 			
 		// TODO - use time to determine values for u and segment_number in this function call
 		
-		Vector3 temp = ComputePointOnCatmullRomCurve(0,0);
+		Vector3 temp = ComputePointOnCatmullRomCurve(time,0);
 		transform.position = temp;
 	}
 }
