@@ -16,6 +16,7 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
 	
 	float time = 0f;
 	const float DT = 0.01f;
+	int segment_number;
 	
 	/* Returns a point on a cubic Catmull-Rom/Blended Parabolas curve
 	 * u is a scalar value from 0 to 1
@@ -57,7 +58,7 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
 	void Start () {
 
 		controlPoints = new Vector3[NumberOfPoints];
-		
+		segment_number = 0;
 
 		// set points randomly:
 		controlPoints[0] = new Vector3(0,0,0);
@@ -84,9 +85,10 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-
-		if(time >= 2){
+		if(time >= 1){
 			time = 0;
+			segment_number++;
+			segment_number = segment_number % 4; //segment number loops back
 		}else{
 			time += DT;
 		}
@@ -94,7 +96,7 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
 			
 		// TODO - use time to determine values for u and segment_number in this function call
 		
-		Vector3 temp = ComputePointOnCatmullRomCurve(time,0);
+		Vector3 temp = ComputePointOnCatmullRomCurve(time,segment_number);
 		transform.position = temp;
 	}
 }
