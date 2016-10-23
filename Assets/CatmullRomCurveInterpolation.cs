@@ -16,8 +16,8 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
 	
 	float time = 0f;
 	const float DT = 0.01f;
-	public static int segmentCount = 1;
-	public static float curveSpeed = 100;
+	public static int segmentCount = 2;
+	public static float tau = 0.5f;
 	
 	/* Returns a point on a cubic Catmull-Rom/Blended Parabolas curve
 	 * u is a scalar value from 0 to 1
@@ -29,19 +29,43 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
     	// Points on segment number 1 start at controlPoints[1] and end at controlPoints[2] etc...
     	Vector3 point = new Vector3();
 
-    	float c0 = ((-u + 2f) * u - 1f) * u * 0.5f;
-    	float c1 = (((3f * u - 5f) * u) * u + 2f) * 0.5f;
-    	float c2 = ((-3f * u + 4f) * u + 1f) * u * 0.5f;
-    	float c3 = ((u - 1f) * u * u) * 0.5f;
+    	Vector3 p0 = controlPoints[(segmentNumber - 2) % NumberOfPoints];
+    	Vector3 p1 = controlPoints[segmentNumber - 1 % NumberOfPoints];
+    	Vector3 p2 = controlPoints[segmentNumber % NumberOfPoints];
+    	Vector3 p3 = controlPoints[(segmentNumber + 1) % NumberOfPoints];
 
-    	Vector3 p0 = controlPoints[(segmentNumber - 1) % NumberOfPoints];
-    	Vector3 p1 = controlPoints[segmentNumber % NumberOfPoints];
-    	Vector3 p2 = controlPoints[(segmentNumber + 1) % NumberOfPoints];
-    	Vector3 p3 = controlPoints[(segmentNumber + 2) % NumberOfPoints];
+    	Vector3 c3 = new Vector3(0,0,0); 
+    	Vector3 c2 = new Vector3(0,0,0);
+    	Vector3 c1 = new Vector3(0,0,0);
+    	Vector3 c0 = new Vector3(0,0,0);
 
-    	point.x = (p0.x * c0) + (p1.x * c1) + (p2.x * c2) + (p3.x * c3);
-    	point.y = (p0.y * c0) + (p1.y * c1) + (p2.y * c2) + (p3.y * c3);
-    	point.x = (p0.z * c0) + (p1.z * c1) + (p2.z * c2) + (p3.z * c3);
+    	//x components of c values:
+    	c3.x = (-1f*tau*p0.x) + (2f-tau)*p1.x + (tau-2f)*p2.x + tau*p3.x;
+    	c2.x = 2f*tau*p0.x + (tau-3f)*p1.x + (3f-(2f*tau))*p2.x + tau*(-1f)*p3.x;
+    	c1.x = 1f*tau*p0.x + tau*p2.x;
+    	c0.x = p1.x;
+
+    	//y components of c values:
+    	c3.y = (-1f*tau*p0.y) + (2f-tau)*p1.y + (tau-2f)*p2.y + tau*p3.y;
+    	c2.y = 2f*tau*p0.y + (tau-3f)*p1.y + (3f-(2f*tau))*p2.y + tau*(-1f)*p3.y;
+    	c1.y = 1f*tau*p0.y + tau*p2.y;
+    	c0.y = p1.y;
+
+    	//z components of c values:
+    	c3.z = (-1f*tau*p0.z) + (2f-tau)*p1.z + (tau-2f)*p2.z + tau*p3.z;
+    	c2.z = 2f*tau*p0.z + (tau-3f)*p1.z + (3f-(2f*tau))*p2.z + tau*(-1f)*p3.z;
+    	c1.z = 1f*tau*p0.z + tau*p2.z;
+    	c0.z = p1.z;
+
+    	//Parabolic curve equation:
+		//x(u) = c3xu3 + c2xu2 + c1xu + c0x
+		//y(u) = c3yu3 + c2yu2 + c1yu + c0y
+		//z(u) = c3zu3 + c2zu2 + c1zu + c0z 
+    	point.x = c3.x*u*u*u + c2.x*u*u + c1.x*u + c0.x;
+    	point.y = c3.y*u*u*u + c2.y*u*u + c1.y*u + c0.y;
+    	point.z = c3.z*u*u*u + c2.z*u*u + c1.z*u + c0.z;
+    	
+ 
 
     	return point;
 	}
@@ -86,10 +110,11 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// TODO - use time to determine values for u and segment_number in this function call
-   		time += DT * Time.deltaTime * curveSpeed;
+   		time += DT;
    		if(time >= 1){
    			segmentCount++;
    			time = 0;
+   			print(segmentCount);
    		}
     	
     	Vector3 temp = ComputePointOnCatmullRomCurve(time, segmentCount);
