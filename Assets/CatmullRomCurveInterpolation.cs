@@ -30,7 +30,7 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
     	Vector3 point = new Vector3();
 
     	Vector3 p0 = controlPoints[(segmentNumber - 2) % NumberOfPoints];
-    	Vector3 p1 = controlPoints[segmentNumber - 1 % NumberOfPoints];
+    	Vector3 p1 = controlPoints[(segmentNumber - 1) % NumberOfPoints];
     	Vector3 p2 = controlPoints[segmentNumber % NumberOfPoints];
     	Vector3 p3 = controlPoints[(segmentNumber + 1) % NumberOfPoints];
 
@@ -65,8 +65,6 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
     	point.y = c3.y*u*u*u + c2.y*u*u + c1.y*u + c0.y;
     	point.z = c3.z*u*u*u + c2.z*u*u + c1.z*u + c0.z;
     	
- 
-
     	return point;
 	}
 	
@@ -85,24 +83,26 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
 
 		controlPoints = new Vector3[NumberOfPoints];
 
+		
 		// set points randomly:
 		controlPoints[0] = new Vector3(0,0,0);
 		for(int i = 1; i < NumberOfPoints; i++)
 		{
 			controlPoints[i] = new Vector3(Random.Range(MinX,MaxX),Random.Range(MinY,MaxY),Random.Range(MinZ,MaxZ));
 		}
-
+		
+		
 		/*
 		//Hard coded control points:
-		controlPoints[0] = new Vector3(0,0,0);
-		controlPoints[1] = new Vector3(0,0,0);
-		controlPoints[2] = new Vector3(0,0,0);
-		controlPoints[3] = new Vector3(0,0,0);
-		controlPoints[4] = new Vector3(0,0,0);
-		controlPoints[5] = new Vector3(0,0,0);
-		controlPoints[6] = new Vector3(0,0,0);
-		controlPoints[7] = new Vector3(0,0,0);
-		*/
+		controlPoints[0] = new Vector3(5,0,0);
+		controlPoints[1] = new Vector3(2,0,0);
+		controlPoints[2] = new Vector3(0,-5,0);
+		controlPoints[3] = new Vector3(-2,0,0);
+		controlPoints[4] = new Vector3(-5,0,0);
+		controlPoints[5] = new Vector3(0,5,0);
+		controlPoints[6] = new Vector3(0,0,-4);
+		controlPoints[7] = new Vector3(0,0,4);
+		*/		
 
 		GenerateControlPointGeometry();
 	}
@@ -110,11 +110,12 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// TODO - use time to determine values for u and segment_number in this function call
-   		time += DT;
-   		if(time >= 1){
+		time += DT;
+   		print(time);
+   		if(time >= 0.99f){
    			segmentCount++;
-   			time = 0;
-   			print(segmentCount);
+   			time = 0f;
+   			print("Segment #"+segmentCount%8);
    		}
     	
     	Vector3 temp = ComputePointOnCatmullRomCurve(time, segmentCount);
