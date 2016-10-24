@@ -91,7 +91,6 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
 			controlPoints[i] = new Vector3(Random.Range(MinX,MaxX),Random.Range(MinY,MaxY),Random.Range(MinZ,MaxZ));
 		}
 		
-		
 		/*
 		//Hard coded control points:
 		controlPoints[0] = new Vector3(5,0,0);
@@ -114,9 +113,9 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
    		if(time >= 1f){
    			segmentCount++;
    			time = 0f;
-   			print("Segment #"+segmentCount%8);
+   			//print("Segment #"+segmentCount%8); //debug
    		}else{
-   			print(time);
+   			//print(time); //debug
    			time += DT;
    		}
     	
