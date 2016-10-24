@@ -113,7 +113,10 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
    		if(time >= 1f){
    			segmentCount++;
    			time = 0f;
+   			//transform.rotation = Quaternion.Slerp(transform.rotation,
+    		//	Quaternion.LookRotation(controlPoints[(segmentCount + 1) % NumberOfPoints] - transform.position), 6f*Time.deltaTime);
    			//print("Segment #"+segmentCount%8); //debug
+   			transform.LookAt(controlPoints[(segmentCount + 1) % NumberOfPoints]);
    		}else{
    			//print(time); //debug
    			time += DT;
