@@ -116,13 +116,14 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
    			//transform.rotation = Quaternion.Slerp(transform.rotation,
     		//	Quaternion.LookRotation(controlPoints[(segmentCount + 1) % NumberOfPoints] - transform.position), 6f*Time.deltaTime);
    			//print("Segment #"+segmentCount%8); //debug
-   			transform.LookAt(controlPoints[(segmentCount + 1) % NumberOfPoints]);
+   			//transform.LookAt(controlPoints[(segmentCount + 1) % NumberOfPoints]);
    		}else{
    			//print(time); //debug
    			time += DT;
    		}
     	
     	Vector3 temp = ComputePointOnCatmullRomCurve(time, segmentCount);
+    	transform.LookAt(temp);
     	transform.position = temp;
 	}
 }
