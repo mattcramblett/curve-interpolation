@@ -1,10 +1,15 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 public class CatmullRomCurveInterpolation : MonoBehaviour {
 	
 	const int NumberOfPoints = 8;
 	Vector3[] controlPoints;
+	ArrayList table = new ArrayList();
+	Dictionary<float, Vector2> map = new Dictionary<float, Vector2>();
+	List<float> numbers = new List<float> ();
 	
 	const int MinX = -5;
 	const int MinY = -5;
@@ -15,7 +20,7 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
 	const int MaxZ = 5;
 	
 	float time = 0f;
-	const float DT = 0.01f;
+	const float DT = 0.001f;
 	public static int segmentCount = 2;
 	public static float tau = 0.5f;
 	
@@ -33,6 +38,8 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
     	Vector3 p1 = controlPoints[(segmentNumber - 1) % NumberOfPoints];
     	Vector3 p2 = controlPoints[segmentNumber % NumberOfPoints];
     	Vector3 p3 = controlPoints[(segmentNumber + 1) % NumberOfPoints];
+
+
 
     	Vector3 c3 = new Vector3(); 
     	Vector3 c2 = new Vector3();
@@ -90,20 +97,36 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
 		{
 			controlPoints[i] = new Vector3(Random.Range(MinX,MaxX),Random.Range(MinY,MaxY),Random.Range(MinZ,MaxZ));
 		}
-		
-		/*
-		//Hard coded control points:
-		controlPoints[0] = new Vector3(5,0,0);
-		controlPoints[1] = new Vector3(2,0,0);
-		controlPoints[2] = new Vector3(0,-5,0);
-		controlPoints[3] = new Vector3(-2,0,0);
-		controlPoints[4] = new Vector3(-5,0,0);
-		controlPoints[5] = new Vector3(0,5,0);
-		controlPoints[6] = new Vector3(0,0,0);
-		controlPoints[7] = new Vector3(0,3,0);
-		*/
 
 		GenerateControlPointGeometry();
+		Dictionary<float, Vector2> tempMap = new Dictionary<float, Vector2>();
+		float totalDistance = 0.0f;
+		Vector3 temporaryPoint = controlPoints[0];
+		float prevDistance = -1f;
+		for (int n = 0; n < controlPoints.Length; n++) {
+			for(float u = 0.000f; u < 1.000f; u = u + DT){
+				Vector2 value = new Vector2 (n, u);
+				Vector3 newPoint = ComputePointOnCatmullRomCurve(u, n + 2);
+				float tempDistance = Vector3.Distance (temporaryPoint, newPoint);
+				totalDistance += tempDistance;
+				if (Mathf.Abs(totalDistance - prevDistance) < .0001 ) {
+					tempMap.Add (totalDistance + .0001f, value);
+					temporaryPoint = newPoint;
+				} else {
+					tempMap.Add (totalDistance, value);
+					temporaryPoint = newPoint;
+				}
+
+				prevDistance = totalDistance;
+			}
+		}
+		foreach(KeyValuePair<float, Vector2> entry in tempMap) {
+			map.Add (entry.Key / totalDistance, entry.Value);
+			numbers.Add (entry.Key / totalDistance);
+		}
+		foreach (KeyValuePair<float, Vector2> entry in map) {
+			//print ("(" + entry.Key + "," + entry.Value + ")");
+		}
 	}
 	
 	// Update is called once per frame
@@ -121,8 +144,21 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
    			//print(time); //debug
    			time += DT;
    		}
-    	
-    	Vector3 temp = ComputePointOnCatmullRomCurve(time, segmentCount);
+		Vector2 fetched = new Vector2();
+		float closest = numbers.OrderBy (item => Mathf.Abs (time - item)).First ();
+		//print (time);
+		bool test = map.TryGetValue (closest, out fetched);
+		//print (closest + " , " + fetched);
+		int segment = Mathf.RoundToInt(fetched.x);
+		//print ("Time: " + fetched.y + " , " + segment);
+		//print (fetched.y);
+		//float roundedTime = Mathf.Round (time * 100f) / 100f;
+		//map.TryGetValue (roundedTime, out fetched);
+		//returns point
+		//TODO: SWITcH key and value of table 
+		//print (segment);
+		Vector3 temp = ComputePointOnCatmullRomCurve(fetched.y, segment + 2);
+		//Vector3 temp = ComputePointOnCatmullRomCurve(time, segmentCount);
     	transform.LookAt(temp);
     	transform.position = temp;
 	}

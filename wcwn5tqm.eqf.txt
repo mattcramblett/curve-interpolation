@@ -1,0 +1,78 @@
+﻿stuf in class
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#	modified:   Assembly-CSharp.csproj
+#	modified:   Assets/CatmullRomCurveInterpolation.cs
+#	modified:   Library/AssetImportState
+#	modified:   Library/EditorUserBuildSettings.asset
+#	modified:   Library/ScriptAssemblies/Assembly-CSharp.dll
+#	modified:   Library/ScriptAssemblies/Assembly-CSharp.dll.mdb
+#	modified:   Library/ScriptAssemblies/BuiltinAssemblies.stamp
+#	modified:   Library/assetDatabase3
+#	modified:   Library/metadata/00/00000000000000002000000000000000
+#	modified:   Library/metadata/00/00000000000000003000000000000000
+#	modified:   Library/metadata/00/00000000000000004000000000000000
+#	modified:   Library/metadata/00/00000000000000004100000000000000
+#	modified:   Library/metadata/00/00000000000000005000000000000000
+#	modified:   Library/metadata/00/00000000000000005100000000000000
+#	modified:   Library/metadata/00/00000000000000006000000000000000
+#	modified:   Library/metadata/00/00000000000000006100000000000000
+#	modified:   Library/metadata/00/00000000000000007000000000000000
+#	modified:   Library/metadata/00/00000000000000007100000000000000
+#	modified:   Library/metadata/00/00000000000000008000000000000000
+#	modified:   Library/metadata/00/00000000000000008100000000000000
+#	modified:   Library/metadata/00/00000000000000009000000000000000
+#	modified:   Library/metadata/00/0000000000000000a000000000000000
+#	modified:   Library/metadata/00/0000000000000000a100000000000000
+#	modified:   Library/metadata/00/0000000000000000b000000000000000
+#	modified:   Library/metadata/00/0000000000000000c000000000000000
+#	modified:   Library/metadata/3c/3c0ad459c1534645b5d603b7cc258f97
+#	modified:   Library/metadata/5f/5f32cd94baa94578a686d4b9d6b660f7
+#	modified:   Library/metadata/68/68f92b265b4afe14d9b88421915a0ed7
+#	modified:   Library/metadata/73/739bbd9f364b4268874f9fd86ab3beef
+#	modified:   Library/metadata/7c/7cbab2be89b54486bbd23a6fe637d30e
+#	modified:   Library/metadata/80/80a3616ca19596e4da0f10f14d241e9f
+#	modified:   Library/metadata/85/852e56802eb941638acbb491814497b0
+#	modified:   Library/metadata/87/870353891bb340e2b2a9c8707e7419ba
+#	modified:   Library/metadata/8e/8e0cd8ed44d4412cbe0642067abc9e44
+#	modified:   Library/metadata/97/97decbdab0634cdd991f8d23ddf0dead
+#	modified:   Library/metadata/ad/adebbd281f1a4ef3a30be7f21937e02f
+#	modified:   Library/metadata/f5/f5f67c52d1564df4a8936ccd202a3bd8
+#	modified:   Library/shadercompiler-UnityShaderCompiler.exe0.log
+#
+# Changes not staged for commit:
+#	modified:   Temp/UnityLockfile
+#	deleted:    Temp/UnityTempFile-6fe250d64d56845188d835593e7bfe11
+#
+# Untracked files:
+#	Temp/UnityTempFile-0529ef75adc83ce4891a9338442a6cfc
+#	Temp/UnityTempFile-115af47dfc37734489d36a0c739a7adb
+#	Temp/UnityTempFile-11b8321d2ed3df242af177356fda655f
+#	Temp/UnityTempFile-254aeb20cee152e4fae2a7dadd7cf79a
+#	Temp/UnityTempFile-2c96bf20767199148b0abe97526ebe35
+#	Temp/UnityTempFile-319b3f22f475c244b920727ec9400565
+#	Temp/UnityTempFile-35b5519c699b59f4b890f694d0f3c69e
+#	Temp/UnityTempFile-37a7953b5d23ad14c825e92befdf3357
+#	Temp/UnityTempFile-61b2893db8c9ff0458c8a0c6e2fa8db3
+#	Temp/UnityTempFile-6cb92205be638a247899c80db05bba89
+#	Temp/UnityTempFile-6fb8dc59c5a51504584590b606df58c6
+#	Temp/UnityTempFile-72b83150c00bab642a4927c494d6b370
+#	Temp/UnityTempFile-9b5e1606f1d589c4e8ea6cde9f94827e
+#	Temp/UnityTempFile-9d9b27e15ec358d4ab298917baf4ceb8
+#	Temp/UnityTempFile-a328cda8db7c0aa459509038e97eb949
+#	Temp/UnityTempFile-ab3d4429413ca0646bfe7816412c9fd2
+#	Temp/UnityTempFile-b851a5b0139aad4469fba88359b31bf3
+#	Temp/UnityTempFile-bbad29cd6bfab1a43becbb0e961dcab9
+#	Temp/UnityTempFile-c005e70783db4424fa58818e788a4d2c
+#	Temp/UnityTempFile-c3941a2c7a8dfba4aad05d11c718dcf7
+#	Temp/UnityTempFile-c8e26a3e04e5fb44eaa6a9def24e6ff9
+#	Temp/UnityTempFile-df36ff4c2d87ef34a83a57d683dad451
+#	Temp/UnityTempFile-e611f2564f117b14e8c7457921fd13ea
+#	Temp/UnityTempFile-f5bdf17526e6f3944aa5812a6147f2a3
+#	slot041m.knc.txt
+#
+
