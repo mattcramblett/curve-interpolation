@@ -104,14 +104,14 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
 		Vector3 temporaryPoint = controlPoints[0];
 		float prevDistance = -1f;
 		for (int n = 0; n < controlPoints.Length; n++) {
-			for(float u = 0.000f; u < 1.000f; u = u + DT){
+			for(float u = 0.0f; u < 1.000f; u = u + DT){
 				Vector2 value = new Vector2 (n, u);
 				Vector3 newPoint = ComputePointOnCatmullRomCurve(u, n + 2);
 				float tempDistance = Vector3.Distance (temporaryPoint, newPoint);
 				totalDistance += tempDistance;
 				if (Mathf.Abs(totalDistance - prevDistance) < .0001 ) {
-					tempMap.Add (totalDistance + .0001f, value);
-					temporaryPoint = newPoint;
+					//tempMap.Add (totalDistance + .0001f, value);
+					//temporaryPoint = newPoint;
 				} else {
 					tempMap.Add (totalDistance, value);
 					temporaryPoint = newPoint;
@@ -124,9 +124,9 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
 			map.Add (entry.Key / totalDistance, entry.Value);
 			numbers.Add (entry.Key / totalDistance);
 		}
-		foreach (KeyValuePair<float, Vector2> entry in map) {
-			//print ("(" + entry.Key + "," + entry.Value + ")");
-		}
+/*		foreach (KeyValuePair<float, Vector2> entry in map){
+			print ("(" + entry.Key + "," + entry.Value + ")");
+		}*/
 	}
 	
 	// Update is called once per frame
@@ -145,21 +145,15 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
    			time += DT;
    		}
 		Vector2 fetched = new Vector2();
+		//finds closest to time
 		float closest = numbers.OrderBy (item => Mathf.Abs (time - item)).First ();
-		//print (time);
 		bool test = map.TryGetValue (closest, out fetched);
-		//print (closest + " , " + fetched);
 		int segment = Mathf.RoundToInt(fetched.x);
-		//print ("Time: " + fetched.y + " , " + segment);
-		//print (fetched.y);
-		//float roundedTime = Mathf.Round (time * 100f) / 100f;
-		//map.TryGetValue (roundedTime, out fetched);
 		//returns point
-		//TODO: SWITcH key and value of table 
-		//print (segment);
 		Vector3 temp = ComputePointOnCatmullRomCurve(fetched.y, segment + 2);
 		//Vector3 temp = ComputePointOnCatmullRomCurve(time, segmentCount);
     	transform.LookAt(temp);
     	transform.position = temp;
+		//print (closest);
 	}
 }
