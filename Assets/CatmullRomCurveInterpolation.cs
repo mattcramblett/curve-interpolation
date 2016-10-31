@@ -107,9 +107,12 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
 			for(float u = 0.0f; u < 1.000f; u = u + DT){
 				Vector2 value = new Vector2 (n, u);
 				Vector3 newPoint = ComputePointOnCatmullRomCurve(u, n + 2);
+				//tempDistance is s
 				float tempDistance = Vector3.Distance (temporaryPoint, newPoint);
+				tempDistance = -2 * Mathf.Pow (u, 3) + 3 * Mathf.Pow (u, 2);
+				tempDistance = (Mathf.Sin (Mathf.PI * u - Mathf.PI / 2) + 1) / 2;
 				totalDistance += tempDistance;
-				if (Mathf.Abs(totalDistance - prevDistance) < .0001 ) {
+				if (Mathf.Abs(totalDistance - prevDistance) < .001 ) {
 					//tempMap.Add (totalDistance + .0001f, value);
 					//temporaryPoint = newPoint;
 				} else {
