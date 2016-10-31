@@ -110,9 +110,9 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
 				//original implementation
 				float tempDistance = Vector3.Distance (temporaryPoint, newPoint);
 				//single cubic ease-in
-				tempDistance = -2 * Mathf.Pow (u, 3) + 3 * Mathf.Pow (u, 2);
+				//tempDistance = -2 * Mathf.Pow (u, 3) + 3 * Mathf.Pow (u, 2);
 				//sinusoidal ease-in
-				tempDistance = (Mathf.Sin (Mathf.PI * u - Mathf.PI / 2) + 1) / 2;
+				//tempDistance = (Mathf.Sin (Mathf.PI * u - Mathf.PI / 2) + 1) / 2;
 				totalDistance += tempDistance;
 				if (Mathf.Abs(totalDistance - prevDistance) < .0001 ) {
 					//tempMap.Add (totalDistance + .0001f, value);
@@ -150,8 +150,9 @@ public class CatmullRomCurveInterpolation : MonoBehaviour {
    			time += DT;
    		}
 		Vector2 fetched = new Vector2();
+		float s = (Mathf.Sin (Mathf.PI * time - Mathf.PI / 2) + 1) / 2;
 		//finds closest to time
-		float closest = numbers.OrderBy (item => Mathf.Abs (time - item)).First ();
+		float closest = numbers.OrderBy (item => Mathf.Abs (s - item)).First ();
 		bool test = map.TryGetValue (closest, out fetched);
 		int segment = Mathf.RoundToInt(fetched.x);
 		//returns point
